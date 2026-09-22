@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import SpaceEnvironment from "../components/universe/SpaceEnvironment";
-import ProductMeteorBackground from "../components/hero/ProductMeteorBackground";
 
 const shopMenu = [
   { title: "Smartphones", items: ["iPhone", "Samsung", "Google"] },
@@ -58,7 +57,7 @@ const marketItems = [
 ];
 
 const geoCities = [
-  { name: "Tbilisi", devices: 1248, shops: 42, top: "52%", left: "72%", size: "lg" },
+  { name: "Tbilisi", devices: 1248, shops: 42, top: "72%", left: "72%", size: "lg" },
   { name: "Batumi", devices: 182, shops: 8, top: "80%", left: "18%", size: "md" },
   { name: "Kutaisi", devices: 214, shops: 11, top: "58%", left: "34%", size: "md" },
   { name: "Rustavi", devices: 96, shops: 5, top: "58%", left: "78%", size: "sm" },
@@ -313,10 +312,8 @@ export default function Home() {
           </div>
         </header>
 
-        {/* Dark Meteor Hero */}
-        <section className="relative overflow-hidden" style={{ background: "linear-gradient(135deg, #0D1713 0%, #10221B 48%, #15221E 100%)" }}>
-          <ProductMeteorBackground />
-
+        {/* Hero Section - Dark Cosmic Environment */}
+        <section className="relative overflow-hidden">
           <div className="relative z-10 max-w-[1320px] mx-auto px-6 pt-20 pb-20 md:pt-28 md:pb-28">
             <div className="max-w-3xl mx-auto text-center">
               <div className="animate-fade-in-up">
@@ -330,7 +327,7 @@ export default function Home() {
                   <span className="grad-text">Buy it.</span>
                 </h1>
 
-                <p className="text-lg text-[#9fb0a8] max-w-xl mx-auto mb-8">
+                <p className="text-lg text-[#C9D0DB] max-w-xl mx-auto mb-8">
                   Discover phones, laptops, gaming consoles and more from pawn shops across Georgia.
                 </p>
 
@@ -343,7 +340,7 @@ export default function Home() {
                       onFocus={() => setSearchOpen(true)}
                       onBlur={() => setTimeout(() => setSearchOpen(false), 150)}
                       placeholder="Search iPhone, MacBook, PlayStation..."
-                      className="flex-1 bg-transparent text-base text-[#171C19] focus:outline-none"
+                      className="flex-1 bg-transparent text-base text-[#F5F7FA] focus:outline-none placeholder-[#7F8999]"
                     />
                     <span className="flex items-center justify-center w-12 h-12 text-white rounded-[18px]" style={{ background: "linear-gradient(135deg, #5B8CFF, #8B6CFF)" }}>
                       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -353,33 +350,33 @@ export default function Home() {
                   </div>
 
                   {searchOpen && (
-                    <div className="absolute left-0 right-0 top-[calc(100%+10px)] z-40 rounded-2xl border border-white/60 shadow-soft p-5 animate-dropdown backdrop-blur-xl" style={{ background: "rgba(248,247,242,0.96)" }}>
-                      <p className="text-xs font-semibold tracking-[0.15em] text-[#6F756F] uppercase mb-4">
+                    <div className="absolute left-0 right-0 top-[calc(100%+10px)] z-40 rounded-2xl border border-white/10 shadow-soft p-5 animate-dropdown backdrop-blur-xl" style={{ background: "rgba(8,13,22,0.92)" }}>
+                      <p className="text-xs font-semibold tracking-[0.15em] text-[#7F8999] uppercase mb-4">
                         {query ? "Products" : "Search products"}
                       </p>
                       <div className="space-y-1">
                         {filtered.length > 0 ? (
                           filtered.map((s) => (
-                            <Link key={s} href={`/products?q=${encodeURIComponent(s)}`} className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-[#E7E5DE] transition-colors">
-                              <span className="w-9 h-9 rounded-lg flex items-center justify-center" style={{ background: "linear-gradient(120deg, #C9DCCF, #83C9AD)" }}>📱</span>
-                              <span className="text-[15px] text-[#171C19]">{s}</span>
+                            <Link key={s} href={`/products?q=${encodeURIComponent(s)}`} className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-white/5 transition-colors">
+                              <span className="w-9 h-9 rounded-lg flex items-center justify-center" style={{ background: "linear-gradient(135deg, rgba(91,140,255,0.15), rgba(139,108,255,0.15))" }}>📱</span>
+                              <span className="text-[15px] text-[#F5F7FA]">{s}</span>
                             </Link>
                           ))
                         ) : (
-                          <p className="px-3 py-2 text-sm text-[#6F756F]">No matches</p>
+                          <p className="px-3 py-2 text-sm text-[#7F8999]">No matches</p>
                         )}
                       </div>
-                      <div className="mt-4 pt-4 border-t border-[#D8D2C4]">
-                        <p className="text-xs font-medium text-[#147A5D]">12 offers available</p>
+                      <div className="mt-4 pt-4 border-t border-white/10">
+                        <p className="text-xs font-medium text-[#5B8CFF]">12 offers available</p>
                       </div>
                     </div>
                   )}
                 </div>
 
                 <div className="flex flex-wrap items-center justify-center gap-2 text-sm">
-                  <span className="text-[#9fb0a8] mr-1">Popular:</span>
+                  <span className="text-[#C9D0DB] mr-1">Popular:</span>
                   {["iPhone 15", "MacBook", "PS5", "Samsung", "AirPods"].map((item) => (
-                    <Link key={item} href={`/products?q=${encodeURIComponent(item)}`} className="tag-pop px-3 py-1.5 rounded-full text-[#9fb0a8]">
+                    <Link key={item} href={`/products?q=${encodeURIComponent(item)}`} className="tag-pop px-3 py-1.5 rounded-full text-[#C9D0DB] hover:text-[#5B8CFF] transition-colors">
                       {item}
                     </Link>
                   ))}
@@ -389,44 +386,44 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Live market strip */}
-        <div className="group/strip overflow-hidden" style={{ background: "linear-gradient(90deg, #10221B, #1E3029, #10221B)" }}>
+        {/* Live market strip - dark cosmic */}
+        <div className="group/strip overflow-hidden" style={{ background: "linear-gradient(90deg, #080D16, #0B1220, #080D16)" }}>
           <div className="marquee-mask">
             <div className="flex w-max animate-marquee group-hover/strip:[animation-play-state:paused] items-center gap-10 py-3.5 text-sm">
               <span className="flex items-center gap-2 shrink-0">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#35C99A] animate-pulse" />
+                <span className="w-1.5 h-1.5 rounded-full bg-[#5B8CFF] animate-pulse" />
                 <span className="text-xs font-semibold tracking-[0.15em] text-white uppercase">Live market</span>
               </span>
               {[...marketItems, ...marketItems].map((item, i) => (
                 <span key={i} className="flex items-center gap-2 whitespace-nowrap">
-                  <span className="text-[#F5F7F4] hover:text-[#35C99A] transition-colors cursor-default">{item}</span>
-                  <span className="text-[#3a4a42]">·</span>
+                  <span className="text-[#F5F7FA] hover:text-[#5B8CFF] transition-colors cursor-default">{item}</span>
+                  <span className="text-[#3a4a5a]">·</span>
                 </span>
               ))}
             </div>
           </div>
         </div>
 
-        {/* Categories */}
-        <section style={{ background: "linear-gradient(180deg, #E7E5DE, #DDE8E0 55%, #E7E5DE)" }}>
+        {/* Categories - Dark cosmic background */}
+        <section className="relative" style={{ background: "linear-gradient(180deg, #080D16 0%, #0B1220 55%, #05070B 100%)" }}>
           <div className="reveal max-w-[1320px] mx-auto px-6 py-20 md:py-28">
-            <h2 className="section-heading text-[#171C19] mb-12">Browse by category</h2>
+            <h2 className="section-heading text-[#F5F7FA] mb-12">Browse by category</h2>
 
             <div className="grid lg:grid-cols-2 gap-12 items-center" onMouseLeave={() => setHoveredCategory("iPhone")}>
               <ul>
                 {categories.map((cat) => {
                   const active = hoveredCategory === cat.name;
                   return (
-                    <li key={cat.name} className="border-b border-[#D8D2C4] last:border-0">
+                    <li key={cat.name} className="border-b border-white/10 last:border-0">
                       <Link
                         href={`/products?category=${cat.name.toLowerCase()}`}
                         onMouseEnter={() => setHoveredCategory(cat.name)}
                         className="cat-row flex items-center justify-between py-5"
                       >
-                        <span className={`cat-label text-2xl md:text-4xl font-semibold ${active ? "text-[#147A5D]" : "text-[#7d817c]"}`}>
+                        <span className={`cat-label text-2xl md:text-4xl font-semibold ${active ? "text-[#5B8CFF]" : "text-[#7F8999]"}`}>
                           {cat.name}
                         </span>
-                        <span className={`text-xl transition-all duration-200 ${active ? "text-[#147A5D] translate-x-3" : "text-[#C5C6BF]"}`}>→</span>
+                        <span className={`text-xl transition-all duration-200 ${active ? "text-[#5B8CFF] translate-x-3" : "text-[#7F8999]"}`}>→</span>
                       </Link>
                     </li>
                   );
@@ -434,27 +431,27 @@ export default function Home() {
               </ul>
 
               <div
-                className="relative rounded-[32px_44px_36px_28px] border border-white/60 min-h-[400px] flex items-center justify-center overflow-hidden"
-                style={{ background: "radial-gradient(60% 60% at 50% 45%, rgba(53,201,154,0.16), rgba(231,229,222,0.7) 70%)" }}
+                className="relative rounded-[32px_44px_36px_28px] border border-white/10 min-h-[400px] flex items-center justify-center overflow-hidden"
+                style={{ background: "radial-gradient(60% 60% at 50% 45%, rgba(91,140,255,0.12), rgba(8,13,22,0.7) 70%)" }}
               >
-                <span key={hoveredCategory} className="text-[210px] animate-fade-in drop-shadow-[0_24px_34px_rgba(16,34,27,0.18)]">
+                <span key={hoveredCategory} className="text-[210px] animate-fade-in drop-shadow-[0_24px_34px_rgba(0,0,0,0.4)]">
                   {categories.find((c) => c.name === hoveredCategory)?.emoji ?? "📱"}
                 </span>
                 <div className="absolute bottom-6 left-6">
-                  <p className="text-sm text-[#6F756F]">Explore</p>
-                  <p className="text-xl font-semibold text-[#171C19]">{hoveredCategory}</p>
+                  <p className="text-sm text-[#7F8999]">Explore</p>
+                  <p className="text-xl font-semibold text-[#F5F7FA]">{hoveredCategory}</p>
                 </div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Products */}
+        {/* Products - Dark glass cards on cosmic background */}
         <section className="reveal relative max-w-[1320px] mx-auto px-6 py-20 md:py-28">
-          <div className="pointer-events-none absolute -top-20 right-0 w-[380px] h-[380px] rounded-full opacity-20" style={{ background: "radial-gradient(circle, #B8B0D9, transparent 70%)", filter: "blur(80px)" }} />
+          <div className="pointer-events-none absolute -top-20 right-0 w-[380px] h-[380px] rounded-full opacity-15" style={{ background: "radial-gradient(circle, #5B8CFF, transparent 70%)", filter: "blur(80px)" }} />
           <div className="flex items-end justify-between mb-10">
-            <h2 className="section-heading text-[#171C19]">Popular right now</h2>
-            <Link href="/products" className="hidden md:flex items-center gap-1 text-sm font-medium text-[#147A5D]">
+            <h2 className="section-heading text-[#F5F7FA]">Popular right now</h2>
+            <Link href="/products" className="hidden md:flex items-center gap-1 text-sm font-medium text-[#5B8CFF]">
               View all
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -467,21 +464,21 @@ export default function Home() {
               <Link key={product.id} href="/products" style={{ transitionDelay: `${i * 60}ms` }} className="reveal product-card group rounded-[26px] overflow-hidden">
                 <div className="relative">
                   <div className="aspect-square flex items-center justify-center product-image">
-                    <span className="text-9xl drop-shadow-[0_20px_30px_rgba(16,34,27,0.16)]">{product.emoji}</span>
+                    <span className="text-9xl drop-shadow-[0_20px_30px_rgba(0,0,0,0.4)]">{product.emoji}</span>
                   </div>
-                  <span className="absolute top-4 right-4 p-2 text-[#6F756F] hover:text-[#147A5D] transition-colors">
+                  <span className="absolute top-4 right-4 p-2 text-[#7F8999] hover:text-[#5B8CFF] transition-colors">
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                     </svg>
                   </span>
                 </div>
                 <div className="p-5">
-                  <p className="text-xs text-[#6F756F] mb-1">{product.brand}</p>
-                  <h3 className="font-semibold text-[#171C19]">{product.name}</h3>
-                  <p className="text-sm text-[#6F756F] mb-4">{product.specs}</p>
+                  <p className="text-xs text-[#7F8999] mb-1">{product.brand}</p>
+                  <h3 className="font-semibold text-[#F5F7FA]">{product.name}</h3>
+                  <p className="text-sm text-[#7F8999] mb-4">{product.specs}</p>
                   <div className="flex items-center justify-between">
-                    <span className="product-price text-xl font-bold text-[#171C19] transition-colors">₾{product.price.toLocaleString()}</span>
-                    <span className="text-sm font-medium text-[#147A5D]">
+                    <span className="product-price text-xl font-bold text-[#F5F7FA] transition-colors">₾{product.price.toLocaleString()}</span>
+                    <span className="text-sm font-medium text-[#5B8CFF]">
                       {product.offers} offers
                       <span className="inline-block ml-1 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all">→</span>
                     </span>
@@ -492,23 +489,23 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Dark comparison */}
-        <section className="reveal relative overflow-hidden" style={{ background: "linear-gradient(135deg, #111D18, #17352A 55%, #15221E)" }}>
-          <div className="pointer-events-none absolute -top-24 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full opacity-30" style={{ background: "radial-gradient(circle, rgba(53,201,154,0.35), transparent 65%)", filter: "blur(90px)" }} />
+        {/* Dark comparison - cosmic control panel */}
+        <section className="reveal relative overflow-hidden" style={{ background: "linear-gradient(135deg, #080D16, #0B1220 55%, #05070B)" }}>
+          <div className="pointer-events-none absolute -top-24 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full opacity-20" style={{ background: "radial-gradient(circle, rgba(91,140,255,0.25), transparent 65%)", filter: "blur(90px)" }} />
           <div className="relative max-w-[1320px] mx-auto px-6 py-20 md:py-28">
             <div className="grid lg:grid-cols-2 gap-16 items-center">
               <div>
-                <h2 className="section-heading text-[#F6F7F4] mb-4">
+                <h2 className="section-heading text-[#F5F7FA] mb-4">
                   One product.
                   <br />
                   Multiple offers.
                 </h2>
-                <p className="text-[#9fb0a8] max-w-sm">Compare prices from different pawn shops and choose the best one for you.</p>
+                <p className="text-[#C9D0DB] max-w-sm">Compare prices from different pawn shops and choose the best one for you.</p>
               </div>
 
-              <div className="rounded-[30px] border border-white/10 p-8 backdrop-blur-sm" style={{ background: "rgba(255,255,255,0.05)" }}>
+              <div className="rounded-[30px] border border-white/10 p-8 backdrop-blur-sm" style={{ background: "rgba(255,255,255,0.03)" }}>
                 <div className="flex items-center gap-4 mb-6">
-                  <div className="w-14 h-14 rounded-xl flex items-center justify-center" style={{ background: "rgba(53,201,154,0.12)" }}>
+                  <div className="w-14 h-14 rounded-xl flex items-center justify-center" style={{ background: "rgba(91,140,255,0.12)" }}>
                     <span className="text-2xl">📱</span>
                   </div>
                   <div>
@@ -519,18 +516,18 @@ export default function Home() {
 
                 <div className="grid grid-cols-3 gap-3 mb-6">
                   {offers.map((offer, i) => (
-                    <div key={offer.lombard} className={`rounded-2xl border p-4 text-center transition-all hover:-translate-y-1 ${i === 0 ? "border-[#35C99A] bg-[#35C99A]/10" : "border-white/10 hover:border-white/25"}`}>
-                      <p className={`text-lg font-bold ${i === 0 ? "text-[#35C99A]" : "text-white"}`}>₾{offer.price.toLocaleString()}</p>
-                      <p className="text-[11px] text-[#9fb0a8] mt-1">{offer.lombard}</p>
-                      {i === 0 && <p className="text-[10px] font-semibold text-[#35C99A] mt-1 tracking-wide">BEST PRICE</p>}
+                    <div key={offer.lombard} className={`rounded-2xl border p-4 text-center transition-all hover:-translate-y-1 ${i === 0 ? "border-[#5B8CFF] bg-[#5B8CFF]/10" : "border-white/10 hover:border-white/25"}`}>
+                      <p className={`text-lg font-bold ${i === 0 ? "text-[#5B8CFF]" : "text-white"}`}>₾{offer.price.toLocaleString()}</p>
+                      <p className="text-[11px] text-[#7F8999] mt-1">{offer.lombard}</p>
+                      {i === 0 && <p className="text-[10px] font-semibold text-[#5B8CFF] mt-1 tracking-wide">BEST PRICE</p>}
                     </div>
                   ))}
                 </div>
 
                 <Link
                   href="/products"
-                  className="group inline-flex items-center gap-2 px-6 py-3 text-[#10221B] font-semibold rounded-xl transition-transform hover:scale-[1.03]"
-                  style={{ background: "linear-gradient(120deg, #35C99A, #83C9AD)" }}
+                  className="group inline-flex items-center gap-2 px-6 py-3 text-[#F5F7FA] font-semibold rounded-xl transition-transform hover:scale-[1.03]"
+                  style={{ background: "linear-gradient(135deg, #5B8CFF, #8B6CFF)" }}
                 >
                   Compare all
                   <svg className="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -542,20 +539,20 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Georgia map */}
-        <section className="reveal relative overflow-hidden" style={{ background: "linear-gradient(180deg, #DDE6DF, #D6E2DB 60%, #DDE6DF)" }}>
-          <div className="blob blob-b" style={{ width: 480, height: 480, top: "10%", left: "-8%", background: "#83C9AD" }} />
-          <div className="blob blob-c" style={{ width: 420, height: 420, bottom: "-10%", right: "-6%", background: "#B8B0D9" }} />
+        {/* Georgia map - Dark cosmic Lombard discovery */}
+        <section className="reveal relative overflow-hidden" style={{ background: "linear-gradient(180deg, #080D16, #0B1220 60%, #05070B)" }}>
+          <div className="blob blob-b" style={{ width: 480, height: 480, top: "10%", left: "-8%", background: "#5B8CFF", opacity: 0.08 }} />
+          <div className="blob blob-c" style={{ width: 420, height: 420, bottom: "-10%", right: "-6%", background: "#8B6CFF", opacity: 0.08 }} />
 
           <div className="relative max-w-[1320px] mx-auto px-6 py-20 md:py-28">
             <div className="mb-10">
-              <h2 className="section-heading text-[#171C19]">Find tech near you</h2>
-              <p className="text-[#6F756F] mt-2">Hover a city to see what&apos;s available nearby.</p>
+              <h2 className="section-heading text-[#F5F7FA]">Find Lombards Near You</h2>
+              <p className="text-[#7F8999] mt-2">Explore pawn shops across Georgia, compare sellers, and discover what they have available.</p>
             </div>
 
             <div className="grid lg:grid-cols-[1.2fr_1fr] gap-10 items-center">
-              <div className="relative rounded-[32px_44px_36px_28px] border border-white/60 min-h-[420px] overflow-hidden" style={{ background: "rgba(248,247,242,0.55)" }}>
-                <svg viewBox="0 0 400 300" className="absolute inset-0 w-full h-full p-10" fill="none" stroke="#9DA79F" strokeWidth="1.5">
+              <div className="relative rounded-[32px_44px_36px_28px] border border-white/10 min-h-[420px] overflow-hidden" style={{ background: "rgba(8,13,22,0.55)" }}>
+                <svg viewBox="0 0 400 300" className="absolute inset-0 w-full h-full p-10" fill="none" stroke="#3a4a5a" strokeWidth="1.5">
                   <path d="M60 40 L180 25 L250 55 L300 50 L345 85 L330 140 L360 175 L335 225 L270 250 L210 235 L150 265 L95 240 L70 195 L45 160 L50 110 Z" />
                 </svg>
 
@@ -563,12 +560,12 @@ export default function Home() {
                   const dot = city.size === "lg" ? "w-4 h-4" : city.size === "md" ? "w-3 h-3" : "w-2.5 h-2.5";
                   return (
                     <Link key={city.name} href={`/products?city=${city.name.toLowerCase()}`} className="group absolute" style={{ top: city.top, left: city.left }}>
-                      <span className={`map-point block ${dot} rounded-full`} style={{ background: "linear-gradient(120deg, #147A5D, #35C99A)" }} />
+                      <span className={`map-point block ${dot} rounded-full`} style={{ background: "linear-gradient(135deg, #5B8CFF, #8B6CFF)" }} />
                       <span className="absolute left-1/2 -translate-x-1/2 mt-3 hidden group-hover:block animate-rise">
-                        <span className="block text-white text-xs rounded-xl px-3 py-2 whitespace-nowrap shadow-lg" style={{ background: "linear-gradient(135deg, #10221B, #17352A)" }}>
+                        <span className="block text-white text-xs rounded-xl px-3 py-2 whitespace-nowrap shadow-lg" style={{ background: "linear-gradient(135deg, #080D16, #0B1220)" }}>
                           <span className="block font-semibold">{city.name}</span>
-                          <span className="block text-[#35C99A] mt-0.5">{city.devices.toLocaleString()} devices · {city.shops} shops</span>
-                          <span className="block text-[#9fb0a8] mt-1">Explore {city.name} →</span>
+                          <span className="block text-[#5B8CFF] mt-0.5">{city.devices.toLocaleString()} devices · {city.shops} lombards</span>
+                          <span className="block text-[#7F8999] mt-1">Explore {city.name} →</span>
                         </span>
                       </span>
                     </Link>
@@ -576,19 +573,19 @@ export default function Home() {
                 })}
               </div>
 
-              <div className="rounded-[30px] p-8" style={{ background: "linear-gradient(135deg, #10221B, #17352A)" }}>
+              <div className="rounded-[30px] p-8 border border-white/10 backdrop-blur-sm" style={{ background: "rgba(8,13,22,0.7)" }}>
                 <div className="flex items-center gap-2 mb-6">
-                  <span className="w-2 h-2 rounded-full bg-[#35C99A] animate-pulse" />
-                  <span className="text-xs font-semibold tracking-[0.15em] text-[#35C99A] uppercase">Live inventory</span>
+                  <span className="w-2 h-2 rounded-full bg-[#5B8CFF] animate-pulse" />
+                  <span className="text-xs font-semibold tracking-[0.15em] text-[#5B8CFF] uppercase">Lombards near you</span>
                 </div>
                 <ul className="space-y-1">
                   {geoCities.map((city) => (
                     <li key={city.name}>
                       <Link href={`/products?city=${city.name.toLowerCase()}`} className="group flex items-center justify-between py-3 border-b border-white/10 last:border-0">
-                        <span className="text-white font-medium group-hover:text-[#35C99A] transition-colors">{city.name}</span>
-                        <span className="text-sm text-[#9fb0a8]">
+                        <span className="text-white font-medium group-hover:text-[#5B8CFF] transition-colors">{city.name}</span>
+                        <span className="text-sm text-[#7F8999]">
                           {city.devices.toLocaleString()} devices
-                          <span className="inline-block ml-2 text-[#35C99A] opacity-0 group-hover:opacity-100 transition-opacity">→</span>
+                          <span className="inline-block ml-2 text-[#5B8CFF] opacity-0 group-hover:opacity-100 transition-opacity">→</span>
                         </span>
                       </Link>
                     </li>
@@ -599,27 +596,27 @@ export default function Home() {
           </div>
         </section>
 
-        {/* How it works */}
-        <section id="how-it-works" className="reveal" style={{ background: "linear-gradient(180deg, #EEECE5, #E4EBE5 55%, #EEECE5)" }}>
+        {/* How it works - dark cosmic path */}
+        <section id="how-it-works" className="reveal" style={{ background: "linear-gradient(180deg, #080D16, #0B1220 55%, #05070B)" }}>
           <div className="max-w-[1320px] mx-auto px-6 py-20 md:py-28">
-            <h2 className="section-heading text-[#171C19] mb-16 text-center">Buying second-hand tech, simplified.</h2>
+            <h2 className="section-heading text-[#F5F7FA] mb-16 text-center">Buying second-hand tech, simplified.</h2>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-12 max-w-4xl mx-auto">
               {steps.map((step) => (
                 <div key={step.number} className="group relative">
-                  <span className="block text-7xl md:text-8xl font-bold text-[#c7cec8] group-hover:text-[#147A5D] transition-colors mb-3">{step.number}</span>
-                  <h3 className="text-xl font-semibold text-[#171C19] uppercase tracking-wide mb-2 group-hover:-translate-y-0.5 transition-transform">{step.title}</h3>
-                  <p className="text-[#6F756F]">{step.description}</p>
-                  <span className="mt-4 block h-px w-0 bg-[#147A5D] group-hover:w-14 transition-all duration-300" />
+                  <span className="block text-7xl md:text-8xl font-bold text-[#3a4a5a] group-hover:text-[#5B8CFF] transition-colors mb-3">{step.number}</span>
+                  <h3 className="text-xl font-semibold text-[#F5F7FA] uppercase tracking-wide mb-2 group-hover:-translate-y-0.5 transition-transform">{step.title}</h3>
+                  <p className="text-[#7F8999]">{step.description}</p>
+                  <span className="mt-4 block h-px w-0 bg-[#5B8CFF] group-hover:w-14 transition-all duration-300" />
                 </div>
               ))}
             </div>
           </div>
         </section>
 
-        {/* For Lombards */}
-        <section className="reveal relative overflow-hidden" style={{ background: "linear-gradient(135deg, #0D1713, #163B2D 55%, #10231B)" }}>
-          <div className="pointer-events-none absolute inset-0" style={{ background: "radial-gradient(50% 60% at 78% 30%, rgba(53,201,154,0.30), transparent 70%)" }} />
+        {/* For Lombards - dark cosmic */}
+        <section className="reveal relative overflow-hidden" style={{ background: "linear-gradient(135deg, #080D16, #0B1220 55%, #05070B)" }}>
+          <div className="pointer-events-none absolute inset-0" style={{ background: "radial-gradient(50% 60% at 78% 30%, rgba(91,140,255,0.15), transparent 70%)" }} />
           <div className="relative max-w-[1320px] mx-auto px-6 py-20 md:py-28">
             <div className="max-w-2xl">
               <h2 className="section-heading text-white mb-6">
@@ -627,11 +624,11 @@ export default function Home() {
                 <br />
                 Online.
               </h2>
-              <p className="text-[#9fb0a8] text-lg mb-10 max-w-md">Put your pawn shop inventory in front of more customers with Pawn.ge.</p>
+              <p className="text-[#C9D0DB] text-lg mb-10 max-w-md">Put your pawn shop inventory in front of more customers with Pawn.ge.</p>
               <Link
                 href="/admin"
-                className="group inline-flex items-center gap-2 px-8 py-4 text-[#10221B] font-semibold rounded-xl transition-transform hover:scale-[1.04]"
-                style={{ background: "linear-gradient(120deg, #35C99A, #83C9AD)" }}
+                className="group inline-flex items-center gap-2 px-8 py-4 text-[#F5F7FA] font-semibold rounded-xl transition-transform hover:scale-[1.04]"
+                style={{ background: "linear-gradient(135deg, #5B8CFF, #8B6CFF)" }}
               >
                 Become a partner
                 <svg className="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -642,8 +639,8 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Footer */}
-        <footer style={{ background: "linear-gradient(180deg, #0B100E, #122019)" }}>
+        {/* Footer - dark cosmic */}
+        <footer style={{ background: "linear-gradient(180deg, #05070B, #080D16)" }}>
           <div className="footer-line" />
           <div className="max-w-[1320px] mx-auto px-6 py-16">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
@@ -661,7 +658,7 @@ export default function Home() {
                   <ul className="space-y-3 text-sm">
                     {col.links.map(([label, href]) => (
                       <li key={label}>
-                        <Link href={href} className="group inline-flex items-center gap-1 text-[#89948E] hover:text-[#35C99A] transition-colors">
+                        <Link href={href} className="group inline-flex items-center gap-1 text-[#7F8999] hover:text-[#5B8CFF] transition-colors">
                           {label}
                           <span className="opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all">→</span>
                         </Link>
@@ -673,7 +670,7 @@ export default function Home() {
             </div>
 
             <div className="pt-8 border-t border-white/10">
-              <p className="text-sm text-[#89948E]">© 2026 Pawn.ge</p>
+              <p className="text-sm text-[#7F8999]">© 2026 Pawn.ge</p>
             </div>
           </div>
         </footer>
