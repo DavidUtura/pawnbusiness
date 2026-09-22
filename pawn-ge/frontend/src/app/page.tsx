@@ -2,9 +2,9 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import SpaceEnvironment from "../components/universe/SpaceEnvironment";
-import OrbitalHeader from "../components/header/OrbitalHeader";
-import CategoryObservatory from "../components/categories/CategoryObservatory";
+import SpaceEnvironment from "@/components/universe/SpaceEnvironment";
+import OrbitalHeader from "@/components/header/OrbitalHeader";
+import CategoryObservatory from "@/components/categories/CategoryObservatory";
 
 const shopMenu = [
   { title: "Smartphones", items: ["iPhone", "Samsung", "Google"] },
