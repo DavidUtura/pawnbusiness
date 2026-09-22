@@ -1,9 +1,9 @@
 'use client';
 
 import React, { useState } from 'react';
-import AdminSidebar from '../../components/admin/AdminSidebar';
-import AdminHeader from '../../components/admin/AdminHeader';
-import KpiCard from '../../components/admin/KpiCard';
+import AdminSidebar from '../../../components/admin/AdminSidebar';
+import AdminHeader from '../../../components/admin/AdminHeader';
+import KpiCard from '../../../components/admin/KpiCard';
 
 export default function AdminDashboard() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
