@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import java.util.List;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,7 +33,7 @@ public class ProductController {
     @GetMapping
     @Operation(summary = "Get All Products", description = "Returns paginated list of products with optional filters")
     @PreAuthorize("permitAll()") // Public access for marketplace browsing
-    public ResponseEntity<Page<ProductDTO>> getAllProducts(
+    public ResponseEntity<List<ProductDTO>> getAllProducts(
             @RequestParam(required = false) String category,
             @RequestParam(required = false) String brand,
             @RequestParam(required = false) String status,
@@ -40,7 +41,7 @@ public class ProductController {
             @RequestParam(required = false) Long maxPrice,
             Pageable pageable) {
         
-        Page<ProductDTO> products = productService.searchProducts(category, brand, status, minPrice, maxPrice, pageable);
+        List<ProductDTO> products = productService.searchProducts(status, category, brand, minPrice != null ? minPrice.toString() : null, maxPrice != null ? maxPrice.toString() : null, pageable);
         return ResponseEntity.ok(products);
     }
 

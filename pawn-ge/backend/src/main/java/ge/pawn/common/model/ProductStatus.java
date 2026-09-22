@@ -1,8 +1,12 @@
 package ge.pawn.common.model;
 
 public enum ProductStatus {
-    AVAILABLE,
+    DRAFT,
+    PENDING_APPROVAL,
+    ACTIVE,
     RESERVED,
     SOLD,
+    ARCHIVED,
+    AVAILABLE,
     UNAVAILABLE
 }
