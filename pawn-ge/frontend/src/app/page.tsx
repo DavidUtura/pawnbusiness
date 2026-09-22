@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import SpaceEnvironment from "../components/universe/SpaceEnvironment";
+import ProductMeteorBackground from "../components/hero/ProductMeteorBackground";
 
 const shopMenu = [
   { title: "Smartphones", items: ["iPhone", "Samsung", "Google"] },
