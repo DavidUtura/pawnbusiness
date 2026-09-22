@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 140" fill="none">
+  <defs>
+    <linearGradient id="cam-body" x1="0" y1="0" x2="200" y2="140" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#2A3431"/>
+      <stop offset="1" stop-color="#141B19"/>
+    </linearGradient>
+    <radialGradient id="cam-lens" cx="0.5" cy="0.5" r="0.5">
+      <stop stop-color="#35C99A" stop-opacity="0.7"/>
+      <stop offset="0.5" stop-color="#147A5D" stop-opacity="0.4"/>
+      <stop offset="1" stop-color="#0D1713"/>
+    </radialGradient>
+  </defs>
+  <rect x="20" y="40" width="160" height="80" rx="14" fill="url(#cam-body)" stroke="#3A4A44" stroke-width="2"/>
+  <rect x="70" y="28" width="60" height="16" rx="6" fill="#1A211E" stroke="#3A4A44" stroke-width="2"/>
+  <circle cx="100" cy="80" r="30" fill="#0B100E" stroke="#3A4A44" stroke-width="2"/>
+  <circle cx="100" cy="80" r="22" fill="url(#cam-lens)"/>
+  <circle cx="100" cy="80" r="9" fill="#0B100E"/>
+  <circle cx="104" cy="76" r="3" fill="#35C99A" opacity="0.8"/>
+  <circle cx="160" cy="56" r="4" fill="#35C99A" opacity="0.6"/>
+  <rect x="30" y="56" width="20" height="6" rx="3" fill="#35C99A" opacity="0.3"/>
+</svg>

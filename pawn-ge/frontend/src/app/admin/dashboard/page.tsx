@@ -203,7 +203,7 @@ export default function AdminDashboard() {
                                 ? 'bg-green-100 text-green-700'
                                 : order.status === 'Pending'
                                 ? 'bg-yellow-100 text-yellow-700'
-                                : 'bg-blue-100 text-blue-700'
+                                : 'bg-emerald-100 text-emerald-700'
                             }`}
                           >
                             {order.status}

@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import AdminSidebar from './AdminSidebar';
+import Link from 'next/link';
 
 interface AdminHeaderProps {
   onMenuClick: () => void;
@@ -48,12 +48,12 @@ export default function AdminHeader({ onMenuClick }: AdminHeaderProps) {
           </a>
 
           {/* View Marketplace Link */}
-          <a
+          <Link
             href="/"
             className="hidden sm:inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors"
           >
             View Marketplace
-          </a>
+          </Link>
 
           {/* Notifications */}
           <button className="relative p-2 text-gray-500 hover:bg-gray-100 rounded-lg">

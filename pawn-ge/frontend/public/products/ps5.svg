@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 200" fill="none">
+  <defs>
+    <linearGradient id="ps-body" x1="0" y1="0" x2="160" y2="200" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#2E2A3E"/>
+      <stop offset="0.5" stop-color="#1A1626"/>
+      <stop offset="1" stop-color="#100D18"/>
+    </linearGradient>
+  </defs>
+  <path d="M50 10 C60 40 60 160 50 190 L70 190 C78 160 78 40 70 10 Z" fill="url(#ps-body)" stroke="#4A4460" stroke-width="2"/>
+  <path d="M110 10 C100 40 100 160 110 190 L90 190 C82 160 82 40 90 10 Z" fill="url(#ps-body)" stroke="#4A4460" stroke-width="2"/>
+  <rect x="72" y="30" width="16" height="140" rx="8" fill="#0D0B14"/>
+  <circle cx="80" cy="60" r="3" fill="#B8B0D9" opacity="0.8"/>
+  <rect x="76" y="100" width="8" height="30" rx="4" fill="#B8B0D9" opacity="0.25"/>
+  <ellipse cx="80" cy="192" rx="34" ry="5" fill="#0D0B14" opacity="0.8"/>
+</svg>
