@@ -1,28 +1,37 @@
 @import "tailwindcss";
 
 :root {
-  /* Surfaces */
-  --bg: #EEECE5;        /* Warm Stone */
-  --ivory: #F8F7F2;     /* Soft Ivory */
+  /* Space Universe - Dark cosmic palette */
+  --space-black: #05070B;
+  --deep-space: #080D16;
+  --midnight-navy: #0B1220;
+  --deep-indigo: #15152B;
+  --nebula-violet: #211B38;
+  
+  /* Electric accents */
+  --electric-blue: #5B8CFF;
+  --electric-violet: #8B6CFF;
+  --cool-white: #F5F7FA;
+  --soft-white: #C9D0DB;
+  --ice-blue: #BBD7FF;
+  
+  /* Optional residual green (micro-accent only) */
+  --residual-green: #35C99A;
+  
+  /* Legacy colors for backward compatibility */
+  --bg: #EEECE5;
+  --ivory: #F8F7F2;
   --sage: #C9DCCF;
   --mint: #83C9AD;
   --sand: #E7E5DE;
   --border: #D8D2C4;
-
-  /* Text */
-  --ink: #171C19;       /* Deep Charcoal */
+  --ink: #171C19;
   --muted: #6F756F;
-
-  /* Greens */
   --emerald: #147A5D;
   --glow: #35C99A;
   --teal: #4E9F9A;
-
-  /* Accents */
   --lilac: #B8B0D9;
   --peach: #E7BFAE;
-
-  /* Darks */
   --forest: #10221B;
   --charcoal: #171C19;
   --footer: #0B100E;
@@ -64,9 +73,9 @@ body {
   line-height: 1.1;
 }
 
-/* Signature gradient text */
+/* Signature gradient text - updated to electric blue/violet */
 .grad-text {
-  background: linear-gradient(120deg, #147A5D, #4E9F9A 55%, #B8B0D9);
+  background: linear-gradient(120deg, #5B8CFF, #8B6CFF 55%, #BBD7FF);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -82,9 +91,36 @@ body {
 @keyframes slideDown { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 @keyframes rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+/* Space environment animations */
+@keyframes starTwinkle {
+  0%, 100% { opacity: 0.15; }
+  50% { opacity: 0.55; }
+}
+@keyframes nebulaDrift {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(40px, 20px) scale(1.08); }
+}
+@keyframes nebulaDrift2 {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(-30px, -25px) scale(1.06); }
+}
+@keyframes nebulaDrift3 {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(25px, -30px) scale(1.1); }
+}
+@keyframes nebulaDrift4 {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(-35px, 15px) scale(1.05); }
+}
 @keyframes meteorTravel {
   from { transform: translate3d(0, 0, 0) rotate(0deg); }
   to { transform: translate3d(var(--tx, 40vw), var(--ty, 120vh), 0) rotate(var(--rot, 12deg)); }
+}
+@keyframes meteorReentry {
+  from { transform: translate3d(0, -20px, 0) scale(0.9); opacity: 0; }
+  20% { opacity: 0.8; }
+  to { transform: translate3d(var(--tx, 10vw), var(--ty, 40vh), 0) rotate(var(--rot, 6deg)); opacity: 0; }
 }
 @keyframes floatDrift {
   0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
