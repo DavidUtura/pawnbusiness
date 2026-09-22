@@ -7,6 +7,7 @@ RUN mvn dependency:go-offline -B
 
 COPY src ./src
 
+# Build with default profile (uses H2)
 RUN mvn clean package -DskipTests -B
 
 FROM eclipse-temurin:21-jre-alpine
