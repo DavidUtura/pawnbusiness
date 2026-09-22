@@ -176,7 +176,7 @@ export default function Home() {
                 <Link
                   href="/admin"
                   className="group hidden sm:inline-flex items-center gap-1.5 px-4 py-2 text-white text-sm font-medium rounded-xl transition-transform hover:scale-[1.04]"
-                  style={{ background: "linear-gradient(120deg, #147A5D, #35C99A)" }}
+                  style={{ background: "linear-gradient(135deg, #5B8CFF, #8B6CFF)" }}
                 >
                   <span>Sell</span>
                   <span className="max-w-0 overflow-hidden whitespace-nowrap opacity-0 group-hover:max-w-[120px] group-hover:opacity-100 transition-all duration-200">
@@ -214,7 +214,7 @@ export default function Home() {
                   <Link
                     href="/admin"
                     className="mt-2 inline-flex justify-center px-4 py-2.5 text-white rounded-xl"
-                    style={{ background: "linear-gradient(120deg, #147A5D, #35C99A)" }}
+                    style={{ background: "linear-gradient(135deg, #5B8CFF, #8B6CFF)" }}
                     onClick={() => setMobileOpen(false)}
                   >
                     Sell
@@ -232,7 +232,7 @@ export default function Home() {
                       <ul className="space-y-3">
                         {col.items.map((item) => (
                           <li key={item}>
-                            <Link href={`/products?q=${item.toLowerCase()}`} className="text-[15px] text-white hover:text-[#35C99A] transition-colors">
+                            <Link href={`/products?q=${item.toLowerCase()}`} className="text-[15px] text-white hover:text-[#5B8CFF] transition-colors">
                               {item}
                             </Link>
                           </li>
@@ -242,7 +242,7 @@ export default function Home() {
                   ))}
                 </div>
                 <div className="mt-8 pt-5 border-t border-white/10">
-                  <Link href="/products" className="inline-flex items-center gap-1 text-sm font-medium text-[#35C99A]">
+                  <Link href="/products" className="inline-flex items-center gap-1 text-sm font-medium text-[#5B8CFF]">
                     View all products →
                   </Link>
                 </div>
@@ -259,7 +259,7 @@ export default function Home() {
                           href={`/products?category=${cat.name.toLowerCase()}`}
                           onMouseEnter={() => setHoveredCategory(cat.name)}
                           className={`flex items-center justify-between px-3 py-2.5 rounded-xl text-[15px] transition-colors ${
-                            hoveredCategory === cat.name ? "bg-white/5 text-[#35C99A] font-medium" : "text-[#F4F6F3] hover:bg-white/5"
+                            hoveredCategory === cat.name ? "bg-white/5 text-[#5B8CFF] font-medium" : "text-[#F4F6F3] hover:bg-white/5"
                           }`}
                         >
                           {cat.name}
@@ -278,7 +278,7 @@ export default function Home() {
                     </span>
                     <div className="absolute bottom-5 left-5">
                       <p className="text-lg font-semibold text-white">{activeCategory?.name ?? "iPhone"}</p>
-                      <p className="text-xs text-[#35C99A] font-medium">24 offers available</p>
+                      <p className="text-xs text-[#5B8CFF] font-medium">24 offers available</p>
                     </div>
                   </div>
                 </div>
@@ -290,8 +290,8 @@ export default function Home() {
                 <p className="text-xs font-semibold tracking-[0.15em] text-[#AEB8B3] uppercase mb-4">Featured sellers</p>
                 <div className="grid grid-cols-2 gap-3">
                   {featuredSellers.map((seller) => (
-                    <Link key={seller.name} href="/lombards" className="flex items-center gap-3 p-3 rounded-xl border border-white/10 hover:border-[#35C99A] transition-colors">
-                      <span className="w-10 h-10 rounded-full flex items-center justify-center font-semibold text-[#10221B]" style={{ background: "linear-gradient(120deg, #83C9AD, #35C99A)" }}>
+                    <Link key={seller.name} href="/lombards" className="flex items-center gap-3 p-3 rounded-xl border border-white/10 hover:border-[#5B8CFF] transition-colors">
+                      <span className="w-10 h-10 rounded-full flex items-center justify-center font-semibold text-[#10221B]" style={{ background: "linear-gradient(135deg, #5B8CFF, #8B6CFF)" }}>
                         {seller.name.charAt(0)}
                       </span>
                       <span>
@@ -304,7 +304,7 @@ export default function Home() {
                   ))}
                 </div>
                 <div className="mt-5 pt-4 border-t border-white/10">
-                  <Link href="/lombards" className="inline-flex items-center gap-1 text-sm font-medium text-[#35C99A]">
+                  <Link href="/lombards" className="inline-flex items-center gap-1 text-sm font-medium text-[#5B8CFF]">
                     View all lombards →
                   </Link>
                 </div>
@@ -320,7 +320,7 @@ export default function Home() {
           <div className="relative z-10 max-w-[1320px] mx-auto px-6 pt-20 pb-20 md:pt-28 md:pb-28">
             <div className="max-w-3xl mx-auto text-center">
               <div className="animate-fade-in-up">
-                <p className="text-xs font-semibold tracking-[0.2em] text-[#35C99A] uppercase mb-6">Second-hand tech marketplace</p>
+                <p className="text-xs font-semibold tracking-[0.2em] text-[#5B8CFF] uppercase mb-6">Second-hand tech marketplace</p>
 
                 <h1 className="hero-headline text-white mb-6">
                   Find it.
@@ -345,7 +345,7 @@ export default function Home() {
                       placeholder="Search iPhone, MacBook, PlayStation..."
                       className="flex-1 bg-transparent text-base text-[#171C19] focus:outline-none"
                     />
-                    <span className="flex items-center justify-center w-12 h-12 text-white rounded-[18px]" style={{ background: "linear-gradient(120deg, #147A5D, #35C99A)" }}>
+                    <span className="flex items-center justify-center w-12 h-12 text-white rounded-[18px]" style={{ background: "linear-gradient(135deg, #5B8CFF, #8B6CFF)" }}>
                       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                       </svg>
