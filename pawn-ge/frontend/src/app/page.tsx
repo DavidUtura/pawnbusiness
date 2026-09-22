@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import ProductMeteorBackground from "../components/hero/ProductMeteorBackground";
+import SpaceEnvironment from "../components/universe/SpaceEnvironment";
 
 const shopMenu = [
   { title: "Smartphones", items: ["iPhone", "Samsung", "Google"] },
@@ -115,16 +115,11 @@ export default function Home() {
     : searchSuggestions;
 
   return (
-    <div className="relative min-h-screen bg-[#EEECE5] overflow-x-hidden">
-      <div className="cursor-light" style={{ left: cursor.x, top: cursor.y }} />
+    <div className="relative min-h-screen bg-[#05070B] overflow-x-hidden text-[#F5F7FA]">
+      {/* Global Space Environment - spans entire page */}
+      <SpaceEnvironment seed={42} />
 
-      <div className="pointer-events-none fixed inset-0 overflow-hidden">
-        <div className="blob blob-a" style={{ width: 620, height: 620, top: "-8%", left: "-6%", background: "#83C9AD" }} />
-        <div className="blob blob-b" style={{ width: 560, height: 560, top: "22%", right: "-10%", background: "#4E9F9A" }} />
-        <div className="blob blob-c" style={{ width: 520, height: 520, bottom: "-6%", left: "22%", background: "#B8B0D9" }} />
-        <div className="blob blob-d" style={{ width: 420, height: 420, top: "55%", left: "-6%", background: "#E7BFAE" }} />
-      </div>
-
+      {/* Page content wrapper with higher z-index */}
       <div className="relative z-10">
         {/* Gradient Header */}
         <header ref={headerRef} className="sticky top-0 z-50 px-4 pt-4">
