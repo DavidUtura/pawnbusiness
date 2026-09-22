@@ -10,6 +10,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "products")
@@ -17,13 +19,11 @@ import java.math.BigDecimal;
 @Setter
 public class Product extends BaseEntity {
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "lombard_id", nullable = false)
-    private Lombard lombard;
+    @Column(name = "lombard_id", nullable = false)
+    private Long lombardId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "branch_id")
-    private Branch branch;
+    @Column(name = "branch_id")
+    private Long branchId;
 
     @Column(nullable = false)
     private String category;
@@ -61,8 +61,11 @@ public class Product extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private ProductStatus status = ProductStatus.AVAILABLE;
+    private ProductStatus status = ProductStatus.DRAFT;
 
     @Column(nullable = false)
     private Integer quantity = 1;
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ProductImage> images = new ArrayList<>();
 }
