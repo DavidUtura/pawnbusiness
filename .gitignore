@@ -4,22 +4,15 @@
 *.o
 *.obj
 *.out
-*.dll
-*.so
-*.a
-*.pyc
-__pycache__/
+build/
+target/
 
 # Dependencies
-node_modules/
-venv/
-.venv/
-target/
-.gradle/
 .mypy_cache/
 .pytest_cache/
-dist/
-build/
+.coverage
+coverage/
+htmlcov/
 
 # Logs and temp files
 *.log
@@ -37,14 +30,9 @@ build/
 *.swp
 *.swo
 
-# System
+# System files
 .DS_Store
 Thumbs.db
-
-# Coverage
-coverage/
-htmlcov/
-.coverage
 
 # Compressed files
 *.zip
