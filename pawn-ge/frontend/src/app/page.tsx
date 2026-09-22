@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import SpaceEnvironment from "../components/universe/SpaceEnvironment";
+import OrbitalHeader from "../components/header/OrbitalHeader";
+import CategoryObservatory from "../components/categories/CategoryObservatory";
 
 const shopMenu = [
   { title: "Smartphones", items: ["iPhone", "Samsung", "Google"] },
@@ -121,196 +123,17 @@ export default function Home() {
 
       {/* Page content wrapper with higher z-index */}
       <div className="relative z-10">
-        {/* Gradient Header */}
-        <header ref={headerRef} className="sticky top-0 z-50 px-4 pt-4">
-          <div
-            className={`header-float mx-auto max-w-[1320px] rounded-2xl border border-white/10 ${
-              scrolled ? "shadow-[0_10px_44px_rgba(16,34,27,0.20)] backdrop-blur-xl" : "shadow-[0_8px_36px_rgba(16,34,27,0.12)] backdrop-blur-md"
-            }`}
-            style={{ background: "linear-gradient(120deg, #0D1713, #17241F 55%, #101A16)" }}
-          >
-            <div className={`flex items-center justify-between px-5 transition-all ${scrolled ? "h-[60px]" : "h-[68px]"}`}>
-              <Link href="/" className="text-xl font-bold text-white">
-                pawn.ge
-              </Link>
-
-              <nav className="hidden lg:flex items-center gap-1">
-                {(
-                  [
-                    ["Shop", "shop"],
-                    ["Categories", "categories"],
-                    ["Lombards", "lombards"],
-                  ] as const
-                ).map(([label, key]) => (
-                  <div key={key} className="relative" onMouseEnter={() => openWithDelay(key)} onMouseLeave={closeWithDelay}>
-                    <button
-                      className={`group relative px-3 py-2 text-sm font-medium transition-colors ${
-                        openMenu === key ? "text-[#35C99A]" : "text-[#F4F6F3] hover:text-white"
-                      }`}
-                    >
-                      <span className="flex items-center gap-1">
-                        {label}
-                        <Chevron open={openMenu === key} />
-                      </span>
-                      <span className="absolute left-1/2 bottom-0 h-0.5 w-0 -translate-x-1/2 bg-[#35C99A] transition-all duration-200 group-hover:w-6" />
-                    </button>
-                  </div>
-                ))}
-                <a href="#how-it-works" className="group relative px-3 py-2 text-sm font-medium text-[#F4F6F3] hover:text-white transition-colors">
-                  How it works
-                  <span className="absolute left-1/2 bottom-0 h-0.5 w-0 -translate-x-1/2 bg-[#35C99A] transition-all duration-200 group-hover:w-6" />
-                </a>
-              </nav>
-
-              <div className="flex items-center gap-2">
-                <button className="hidden sm:flex items-center justify-center w-9 h-9 text-[#AEB8B3] hover:text-white transition-colors" aria-label="Favorites">
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                  </svg>
-                </button>
-                <Link href="/account" className="hidden sm:block px-3 py-2 text-sm font-medium text-[#AEB8B3] hover:text-white transition-colors">
-                  Sign in
-                </Link>
-
-                <Link
-                  href="/admin"
-                  className="group hidden sm:inline-flex items-center gap-1.5 px-4 py-2 text-white text-sm font-medium rounded-xl transition-transform hover:scale-[1.04]"
-                  style={{ background: "linear-gradient(135deg, #5B8CFF, #8B6CFF)" }}
-                >
-                  <span>Sell</span>
-                  <span className="max-w-0 overflow-hidden whitespace-nowrap opacity-0 group-hover:max-w-[120px] group-hover:opacity-100 transition-all duration-200">
-                    your device
-                  </span>
-                  <svg className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                  </svg>
-                </Link>
-
-                <button className="lg:hidden p-2 text-white" aria-label="Menu" onClick={() => setMobileOpen((v) => !v)}>
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d={mobileOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"} />
-                  </svg>
-                </button>
-              </div>
-            </div>
-
-            {mobileOpen && (
-              <div className="lg:hidden animate-slide-down border-t border-white/10 px-5 py-4">
-                <div className="flex flex-col gap-1 text-sm font-medium text-[#F4F6F3]">
-                  {[
-                    ["Shop", "/products"],
-                    ["Categories", "/products"],
-                    ["Lombards", "/lombards"],
-                    ["Sign in", "/account"],
-                  ].map(([label, href]) => (
-                    <Link key={label} href={href} className="py-2" onClick={() => setMobileOpen(false)}>
-                      {label}
-                    </Link>
-                  ))}
-                  <a href="#how-it-works" className="py-2" onClick={() => setMobileOpen(false)}>
-                    How it works
-                  </a>
-                  <Link
-                    href="/admin"
-                    className="mt-2 inline-flex justify-center px-4 py-2.5 text-white rounded-xl"
-                    style={{ background: "linear-gradient(135deg, #5B8CFF, #8B6CFF)" }}
-                    onClick={() => setMobileOpen(false)}
-                  >
-                    Sell
-                  </Link>
-                </div>
-              </div>
-            )}
-
-            {openMenu === "shop" && (
-              <Mega onEnter={() => openWithDelay("shop")} onLeave={closeWithDelay}>
-                <div className="grid grid-cols-3 gap-8">
-                  {shopMenu.map((col) => (
-                    <div key={col.title}>
-                      <p className="text-xs font-semibold tracking-[0.15em] text-[#AEB8B3] uppercase mb-4">{col.title}</p>
-                      <ul className="space-y-3">
-                        {col.items.map((item) => (
-                          <li key={item}>
-                            <Link href={`/products?q=${item.toLowerCase()}`} className="text-[15px] text-white hover:text-[#5B8CFF] transition-colors">
-                              {item}
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  ))}
-                </div>
-                <div className="mt-8 pt-5 border-t border-white/10">
-                  <Link href="/products" className="inline-flex items-center gap-1 text-sm font-medium text-[#5B8CFF]">
-                    View all products →
-                  </Link>
-                </div>
-              </Mega>
-            )}
-
-            {openMenu === "categories" && (
-              <Mega onEnter={() => openWithDelay("categories")} onLeave={closeWithDelay}>
-                <div className="grid grid-cols-[240px_1fr] gap-8">
-                  <ul className="space-y-1">
-                    {categories.map((cat) => (
-                      <li key={cat.name}>
-                        <Link
-                          href={`/products?category=${cat.name.toLowerCase()}`}
-                          onMouseEnter={() => setHoveredCategory(cat.name)}
-                          className={`flex items-center justify-between px-3 py-2.5 rounded-xl text-[15px] transition-colors ${
-                            hoveredCategory === cat.name ? "bg-white/5 text-[#5B8CFF] font-medium" : "text-[#F4F6F3] hover:bg-white/5"
-                          }`}
-                        >
-                          {cat.name}
-                          <span className="text-xs opacity-60">→</span>
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-
-                  <div
-                    className="relative rounded-2xl border border-white/10 flex items-center justify-center min-h-[300px] overflow-hidden"
-                    style={{ background: "radial-gradient(60% 60% at 50% 40%, rgba(53,201,154,0.18), rgba(16,24,21,0.6) 70%)" }}
-                  >
-                    <span key={activeCategory?.name} className="text-[130px] animate-fade-in">
-                      {activeCategory?.emoji ?? "📱"}
-                    </span>
-                    <div className="absolute bottom-5 left-5">
-                      <p className="text-lg font-semibold text-white">{activeCategory?.name ?? "iPhone"}</p>
-                      <p className="text-xs text-[#5B8CFF] font-medium">24 offers available</p>
-                    </div>
-                  </div>
-                </div>
-              </Mega>
-            )}
-
-            {openMenu === "lombards" && (
-              <Mega onEnter={() => openWithDelay("lombards")} onLeave={closeWithDelay}>
-                <p className="text-xs font-semibold tracking-[0.15em] text-[#AEB8B3] uppercase mb-4">Featured sellers</p>
-                <div className="grid grid-cols-2 gap-3">
-                  {featuredSellers.map((seller) => (
-                    <Link key={seller.name} href="/lombards" className="flex items-center gap-3 p-3 rounded-xl border border-white/10 hover:border-[#5B8CFF] transition-colors">
-                      <span className="w-10 h-10 rounded-full flex items-center justify-center font-semibold text-[#10221B]" style={{ background: "linear-gradient(135deg, #5B8CFF, #8B6CFF)" }}>
-                        {seller.name.charAt(0)}
-                      </span>
-                      <span>
-                        <span className="block text-sm font-medium text-white">{seller.name}</span>
-                        <span className="block text-xs text-[#AEB8B3]">
-                          ★ {seller.rating} · {seller.products} products
-                        </span>
-                      </span>
-                    </Link>
-                  ))}
-                </div>
-                <div className="mt-5 pt-4 border-t border-white/10">
-                  <Link href="/lombards" className="inline-flex items-center gap-1 text-sm font-medium text-[#5B8CFF]">
-                    View all lombards →
-                  </Link>
-                </div>
-              </Mega>
-            )}
-          </div>
-        </header>
+        {/* Orbital Header Component */}
+        <OrbitalHeader
+          scrolled={scrolled}
+          openMenu={openMenu}
+          setOpenMenu={setOpenMenu}
+          hoveredCategory={hoveredCategory}
+          setHoveredCategory={setHoveredCategory}
+          mobileOpen={mobileOpen}
+          setMobileOpen={setMobileOpen}
+          cursor={cursor}
+        />
 
         {/* Hero Section - Dark Cosmic Environment */}
         <section className="relative overflow-hidden">
@@ -404,47 +227,11 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Categories - Dark cosmic background */}
-        <section className="relative" style={{ background: "linear-gradient(180deg, #080D16 0%, #0B1220 55%, #05070B 100%)" }}>
-          <div className="reveal max-w-[1320px] mx-auto px-6 py-20 md:py-28">
-            <h2 className="section-heading text-[#F5F7FA] mb-12">Browse by category</h2>
-
-            <div className="grid lg:grid-cols-2 gap-12 items-center" onMouseLeave={() => setHoveredCategory("iPhone")}>
-              <ul>
-                {categories.map((cat) => {
-                  const active = hoveredCategory === cat.name;
-                  return (
-                    <li key={cat.name} className="border-b border-white/10 last:border-0">
-                      <Link
-                        href={`/products?category=${cat.name.toLowerCase()}`}
-                        onMouseEnter={() => setHoveredCategory(cat.name)}
-                        className="cat-row flex items-center justify-between py-5"
-                      >
-                        <span className={`cat-label text-2xl md:text-4xl font-semibold ${active ? "text-[#5B8CFF]" : "text-[#7F8999]"}`}>
-                          {cat.name}
-                        </span>
-                        <span className={`text-xl transition-all duration-200 ${active ? "text-[#5B8CFF] translate-x-3" : "text-[#7F8999]"}`}>→</span>
-                      </Link>
-                    </li>
-                  );
-                })}
-              </ul>
-
-              <div
-                className="relative rounded-[32px_44px_36px_28px] border border-white/10 min-h-[400px] flex items-center justify-center overflow-hidden"
-                style={{ background: "radial-gradient(60% 60% at 50% 45%, rgba(91,140,255,0.12), rgba(8,13,22,0.7) 70%)" }}
-              >
-                <span key={hoveredCategory} className="text-[210px] animate-fade-in drop-shadow-[0_24px_34px_rgba(0,0,0,0.4)]">
-                  {categories.find((c) => c.name === hoveredCategory)?.emoji ?? "📱"}
-                </span>
-                <div className="absolute bottom-6 left-6">
-                  <p className="text-sm text-[#7F8999]">Explore</p>
-                  <p className="text-xl font-semibold text-[#F5F7FA]">{hoveredCategory}</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+        {/* Category Observatory Component */}
+        <CategoryObservatory
+          hoveredCategory={hoveredCategory}
+          setHoveredCategory={setHoveredCategory}
+        />
 
         {/* Products - Dark glass cards on cosmic background */}
         <section className="reveal relative max-w-[1320px] mx-auto px-6 py-20 md:py-28">
