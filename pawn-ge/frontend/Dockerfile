@@ -7,8 +7,12 @@ RUN npm ci
 
 COPY . .
 
-ARG NEXT_PUBLIC_API_URL=http://localhost:8080/api/v1
+ARG NEXT_PUBLIC_API_URL=http://localhost:8080
 ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
+# Server-side (RSC / server actions) backend URL — inside the compose network
+# this points at the backend service by name.
+ARG API_URL=http://backend:8080
+ENV API_URL=$API_URL
 
 RUN npm run build
 
