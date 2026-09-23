@@ -19,7 +19,7 @@ public class ProductImage extends BaseEntity {
     @Column(nullable = false)
     private String imageUrl;
 
-    @Column(nullable = false)
+    @Column(name = "s3_key", nullable = false)
     private String s3Key;
 
     private String altText;
