@@ -34,7 +34,7 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/api/v1/auth/register", "/api/v1/auth/login",
                         "/api/v1/auth/refresh").permitAll()
-                .requestMatchers("/api/v1/products/**", "/api/v1/lombards/**").permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/v1/products/**", "/api/v1/lombards/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/v1/analytics/sales").permitAll()
                 .requestMatchers("/api/v1/admin/**", "/api/v1/users/**").hasAnyRole("LOMBARD_ADMIN", "SUPER_ADMIN")
                 .requestMatchers("/api/v1/super-admin/**").hasRole("SUPER_ADMIN")
