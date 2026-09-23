@@ -4,8 +4,8 @@ import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import SpaceEnvironment from "@/components/universe/SpaceEnvironment";
-import { api } from "@/lib/api/client";
 import { setTokens } from "@/lib/auth/session";
+import { loginAction } from "./actions";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -19,10 +19,14 @@ export default function LoginPage() {
     setError(null);
     setLoading(true);
     try {
-      const session = await api.login(email, password);
-      setTokens(session.accessToken, session.refreshToken);
-      if (session.role === "SUPER_ADMIN") router.push("/super-admin/applications");
-      else if (session.role === "LOMBARD_ADMIN" || session.role === "LOMBARD_EMPLOYEE")
+      const result = await loginAction(email, password);
+      if (!result.ok) throw new Error(result.error);
+      // Keep the client session store in sync with the httpOnly cookies.
+      if (result.accessToken && result.refreshToken) {
+        setTokens(result.accessToken, result.refreshToken);
+      }
+      if (result.role === "SUPER_ADMIN") router.push("/super-admin/applications");
+      else if (result.role === "LOMBARD_ADMIN" || result.role === "LOMBARD_EMPLOYEE")
         router.push("/admin/dashboard");
       else router.push("/");
     } catch (err) {
