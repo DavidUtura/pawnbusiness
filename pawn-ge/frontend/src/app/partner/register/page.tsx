@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import SpaceEnvironment from "@/components/universe/SpaceEnvironment";
+import { api } from "@/lib/api/client";
 
 type ApplicationStatus =
   | "DRAFT"
@@ -48,6 +49,8 @@ export default function PartnerRegisterPage() {
     selectedCategories: [] as string[],
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   const update = (key: keyof typeof form, value: string | boolean) =>
     setForm((f) => ({ ...f, [key]: value }));
@@ -92,16 +95,43 @@ export default function PartnerRegisterPage() {
 
   const submit = async () => {
     if (!validateStep()) return;
+    setSubmitting(true);
+    setSubmitError(null);
     try {
-      await fetch("/api/v1/partner/applications", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+      // Step 1 — create the partner account (CUSTOMER role, no seller privileges yet).
+      await api.register({
+        firstName: form.firstName,
+        lastName: form.lastName || undefined,
+        email: form.email,
+        phoneNumber: form.phone,
+        password: form.password,
       });
-    } catch {
-      // Backend may be unavailable in preview; application is still recorded locally.
+      // Step 2 — sign in so the application is tied to an authenticated identity.
+      await api.login(form.email, form.password);
+      // Step 3 — submit the Lombard application against the real backend.
+      await api.submitPartnerApplication({
+        displayName: form.displayName,
+        legalName: form.legalName,
+        taxId: form.taxId || null,
+        contactName: form.contactName || `${form.firstName} ${form.lastName}`.trim(),
+        phone: form.phone,
+        email: form.email,
+        website: form.website || null,
+        branchCount: Number(form.branchCount) || 1,
+        categories: form.selectedCategories,
+        address: form.address,
+        workingHours: form.workingHours || null,
+        deliveryAvailable: form.delivery,
+        pickupAvailable: form.pickup,
+      });
+      setSubmitted(true);
+    } catch (err) {
+      setSubmitError(
+        err instanceof Error ? err.message : "Submission failed. Please try again."
+      );
+    } finally {
+      setSubmitting(false);
     }
-    setSubmitted(true);
   };
 
   const inputCls =
@@ -349,6 +379,14 @@ export default function PartnerRegisterPage() {
                 before Lombard Admin access is granted. This information is
                 used solely for marketplace trust and legal compliance.
               </p>
+              {submitError && (
+                <div
+                  role="alert"
+                  className="rounded-xl border border-[#FF7B8A]/30 bg-[#FF7B8A]/10 px-4 py-3 text-sm text-[#FFB4BF]"
+                >
+                  {submitError}
+                </div>
+              )}
             </div>
           )}
 
@@ -362,13 +400,18 @@ export default function PartnerRegisterPage() {
             )}
             <button
               type="submit"
-              className="px-6 py-2.5 rounded-xl text-sm font-semibold text-white transition-transform hover:-translate-y-0.5"
+              disabled={submitting}
+              className="px-6 py-2.5 rounded-xl text-sm font-semibold text-white transition-transform hover:-translate-y-0.5 disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0"
               style={{
                 background: "linear-gradient(135deg,#5B8CFF,#8B6CFF)",
                 boxShadow: "0 8px 30px rgba(91,140,255,.18)",
               }}
             >
-              {step < steps.length - 1 ? "Continue" : "Submit application"}
+              {submitting
+                ? "Submitting…"
+                : step < steps.length - 1
+                  ? "Continue"
+                  : "Submit application"}
             </button>
           </div>
         </form>
