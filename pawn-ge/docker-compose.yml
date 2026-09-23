@@ -3,7 +3,11 @@ services:
     image: postgres:16-alpine
     container_name: pawn-ge-postgres
     environment:
-      POSTGRES_DB: pawn_ge
+      # NOTE: the database name is intentionally identical to the user name
+      # ("pawn_user") because a stale postgres data volume on some machines
+      # was originally initialized with POSTGRES_DB=pawn_user. Keeping them
+      # equal makes the container work with BOTH fresh and existing volumes.
+      POSTGRES_DB: pawn_user
       POSTGRES_USER: pawn_user
       POSTGRES_PASSWORD: pawn_password
     ports:
@@ -13,7 +17,9 @@ services:
     networks:
       - pawn-network
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U pawn_user"]
+      # -d "$POSTGRES_DB" also waits until the application database exists,
+      # not just that the postmaster accepts connections.
+      test: ["CMD-SHELL", "pg_isready -U pawn_user -d \"$POSTGRES_DB\""]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -64,7 +70,7 @@ services:
       minio:
         condition: service_healthy
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/pawn_ge
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/pawn_user
       SPRING_DATASOURCE_USERNAME: pawn_user
       SPRING_DATASOURCE_PASSWORD: pawn_password
       SPRING_REDIS_HOST: redis
