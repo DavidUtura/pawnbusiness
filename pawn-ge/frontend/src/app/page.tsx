@@ -413,11 +413,11 @@ export default function Home() {
               </h2>
               <p className="text-[#C9D0DB] text-lg mb-10 max-w-md">Put your pawn shop inventory in front of more customers with Pawn.ge.</p>
               <Link
-                href="/admin"
+                href="/partner/register"
                 className="group inline-flex items-center gap-2 px-8 py-4 text-[#F5F7FA] font-semibold rounded-xl transition-transform hover:scale-[1.04]"
                 style={{ background: "linear-gradient(135deg, #5B8CFF, #8B6CFF)" }}
               >
-                Become a partner
+                Become a Lombard Partner
                 <svg className="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>
@@ -437,7 +437,7 @@ export default function Home() {
 
               {[
                 { title: "Marketplace", links: [["Products", "/products"], ["Lombards", "/lombards"], ["How it works", "#how-it-works"]] },
-                { title: "Business", links: [["For Lombards", "/admin"], ["Partner with us", "#"]] },
+                { title: "Business", links: [["For Lombards", "/partner/register"], ["Partner with us", "/partner/register"]] },
                 { title: "Support", links: [["Contact", "#"], ["Terms", "#"], ["Privacy", "#"]] },
               ].map((col) => (
                 <div key={col.title}>

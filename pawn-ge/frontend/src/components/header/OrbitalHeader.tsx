@@ -2,6 +2,30 @@
 
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
+import { getAccessToken, decodeRole } from '@/lib/auth/session';
+
+/** Role-aware admin links. Hidden for customers — hiding is UX only; the API enforces access. */
+function AdminNavLinks() {
+  const [role, setRole] = useState<string | null>(null);
+  useEffect(() => {
+    setRole(decodeRole(getAccessToken()));
+  }, []);
+  if (role === 'LOMBARD_ADMIN' || role === 'LOMBARD_EMPLOYEE') {
+    return (
+      <Link href="/admin/dashboard" className="hidden sm:block px-3 py-2 text-sm font-medium text-[#BBD7FF] hover:text-white transition-colors">
+        Lombard Admin
+      </Link>
+    );
+  }
+  if (role === 'SUPER_ADMIN') {
+    return (
+      <Link href="/super-admin/applications" className="hidden sm:block px-3 py-2 text-sm font-medium text-[#BBD7FF] hover:text-white transition-colors">
+        Super Admin
+      </Link>
+    );
+  }
+  return null;
+}
 
 const shopMenu = [
   { title: 'Smartphones', items: ['iPhone', 'Samsung', 'Google'] },
@@ -160,27 +184,27 @@ export default function OrbitalHeader({
               </svg>
             </button>
 
+            {/* Admin entry — only visible to Lombard/Super Admin sessions (UX only; API is the real gate) */}
+            <AdminNavLinks />
+
             {/* Sign in */}
             <Link
-              href="/account"
+              href="/login"
               className="hidden sm:block px-3 py-2 text-sm font-medium text-[#7F8999] hover:text-white transition-colors"
             >
               Sign in
             </Link>
 
-            {/* Sell button */}
+            {/* Become a Lombard Partner CTA */}
             <Link
-              href="/admin"
-              className="group hidden sm:inline-flex items-center gap-1.5 px-4 py-2 text-white text-sm font-medium rounded-xl transition-transform hover:scale-[1.04]"
+              href="/partner/register"
+              className="group hidden md:inline-flex items-center gap-1.5 px-4 py-2 text-white text-sm font-medium rounded-xl transition-transform hover:scale-[1.04]"
               style={{
                 background: 'linear-gradient(135deg, #5B8CFF, #8B6CFF)',
                 boxShadow: '0 8px 30px rgba(91,140,255,0.16)',
               }}
             >
-              <span>Sell</span>
-              <span className="max-w-0 overflow-hidden whitespace-nowrap opacity-0 group-hover:max-w-[120px] group-hover:opacity-100 transition-all duration-200">
-                your device
-              </span>
+              <span>Become a Lombard Partner</span>
               <svg
                 className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1"
                 fill="none"
@@ -241,12 +265,12 @@ export default function OrbitalHeader({
                 How it works
               </a>
               <Link
-                href="/admin"
+                href="/partner/register"
                 className="mt-2 inline-flex justify-center px-4 py-2.5 text-white rounded-xl"
                 style={{ background: 'linear-gradient(135deg, #5B8CFF, #8B6CFF)' }}
                 onClick={() => setMobileOpen(false)}
               >
-                Sell
+                Become a Lombard Partner
               </Link>
             </div>
           </div>
