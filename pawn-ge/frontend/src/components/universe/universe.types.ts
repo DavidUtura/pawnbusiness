@@ -33,6 +33,22 @@ export interface ProductParticle {
   glow: string;
   /** Optional blur for depth */
   blur?: number;
+  /** Comet trail length in px (0 for non-meteor products) */
+  trailLength: number;
+  /** Trail blur radius in px */
+  trailBlur: number;
+  /** Trail intensity multiplier (depth + per-product tuning) */
+  trailIntensity: number;
+  /** Warm flame core color */
+  flameCore: string;
+  /** Tail-tip color (violet / cyan / ice blue) */
+  tailTip: string;
+  /** Rim-light color around the product body */
+  rim: string;
+  /** Number of detached ember sparks behind the trail */
+  sparks: number;
+  /** Whether this meteor should render its comet trail */
+  hasTrail: boolean;
 }
 
 export interface Star {
