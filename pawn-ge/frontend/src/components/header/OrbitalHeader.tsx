@@ -57,7 +57,6 @@ interface OrbitalHeaderProps {
   setHoveredCategory: (cat: string | null) => void;
   mobileOpen: boolean;
   setMobileOpen: (open: boolean) => void;
-  cursor: { x: number; y: number };
 }
 
 export default function OrbitalHeader({
@@ -68,10 +67,38 @@ export default function OrbitalHeader({
   setHoveredCategory,
   mobileOpen,
   setMobileOpen,
-  cursor,
 }: OrbitalHeaderProps) {
   const headerRef = useRef<HTMLDivElement>(null);
+  const cursorGlowRef = useRef<HTMLDivElement>(null);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Cursor-reactive light: written directly to the DOM via a CSS custom
+  // property. Previously this lived in page-level React state and re-rendered
+  // the ENTIRE homepage on every mousemove event — a major CPU sink.
+  useEffect(() => {
+    const el = headerRef.current;
+    const glow = cursorGlowRef.current;
+    if (!el || !glow) return;
+    let raf = 0;
+    let lastX = 0;
+    let lastY = 0;
+    const apply = () => {
+      raf = 0;
+      const rect = el.getBoundingClientRect();
+      glow.style.setProperty('--cx', `${lastX - rect.left}px`);
+      glow.style.setProperty('--cy', `${lastY - rect.top}px`);
+    };
+    const onMove = (e: MouseEvent) => {
+      lastX = e.clientX;
+      lastY = e.clientY;
+      if (!raf) raf = requestAnimationFrame(apply);
+    };
+    window.addEventListener('mousemove', onMove, { passive: true });
+    return () => {
+      if (raf) cancelAnimationFrame(raf);
+      window.removeEventListener('mousemove', onMove);
+    };
+  }, []);
 
   useEffect(() => {
     const onClick = (e: MouseEvent) => {
@@ -99,7 +126,7 @@ export default function OrbitalHeader({
     <header className="sticky top-0 z-50 px-4 pt-4">
       <div
         ref={headerRef}
-        className="header-float mx-auto max-w-[1320px] rounded-[26px] border border-white/10 backdrop-blur-[26px] transition-all duration-300"
+        className="header-float mx-auto max-w-[1320px] rounded-[26px] border border-white/10 backdrop-blur-[18px] transition-all duration-300"
         style={{
           background: `linear-gradient(135deg, rgba(8,12,20,0.88), rgba(12,16,28,0.72))`,
           boxShadow: scrolled
@@ -107,11 +134,13 @@ export default function OrbitalHeader({
             : '0 20px 70px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.035)',
         }}
       >
-        {/* Cursor-reactive light */}
+        {/* Cursor-reactive light (position driven by CSS vars, no React state) */}
         <div
+          ref={cursorGlowRef}
           className="pointer-events-none absolute inset-0 rounded-[26px] overflow-hidden"
           style={{
-            background: `radial-gradient(240px circle at ${cursor.x - (headerRef.current?.getBoundingClientRect().left || 0)}px ${cursor.y - (headerRef.current?.getBoundingClientRect().top || 0)}px, rgba(91,140,255,0.10), transparent 65%)`,
+            background:
+              "radial-gradient(240px circle at var(--cx, -600px) var(--cy, -600px), rgba(91,140,255,0.10), transparent 65%)",
             opacity: 0.6,
           }}
         />

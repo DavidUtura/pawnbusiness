@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import SpaceEnvironment from "@/components/universe/SpaceEnvironment";
 import { api } from "@/lib/api/client";
 
 type ApplicationStatus =
@@ -141,7 +140,6 @@ export default function PartnerRegisterPage() {
   if (submitted) {
     return (
       <main className="relative min-h-screen text-[#F5F7FA]">
-        <SpaceEnvironment />
         <div className="relative z-10 max-w-xl mx-auto px-6 pt-40 pb-32 text-center">
           <div
             className="inline-flex items-center justify-center w-16 h-16 rounded-full mb-6"
@@ -177,7 +175,6 @@ export default function PartnerRegisterPage() {
 
   return (
     <main className="relative min-h-screen text-[#F5F7FA]">
-      <SpaceEnvironment />
       <div className="relative z-10 max-w-2xl mx-auto px-6 pt-32 pb-24">
         <div className="text-center mb-10">
           <p className="text-xs uppercase tracking-[0.24em] text-[#8B6CFF] mb-3">

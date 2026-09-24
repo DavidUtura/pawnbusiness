@@ -3,7 +3,6 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import SpaceEnvironment from "@/components/universe/SpaceEnvironment";
 import { setTokens } from "@/lib/auth/session";
 import { loginAction } from "./actions";
 
@@ -38,7 +37,6 @@ export default function LoginPage() {
 
   return (
     <main className="relative min-h-screen">
-      <SpaceEnvironment />
       <div className="relative z-10 flex items-center justify-center min-h-screen px-6">
         <div
           className="w-full max-w-md rounded-[28px] p-10"

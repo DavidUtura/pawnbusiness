@@ -97,31 +97,44 @@ body {
   0%, 100% { opacity: 0.15; }
   50% { opacity: 0.55; }
 }
-@keyframes nebulaDrift {
-  0% { transform: translate(0, 0) scale(1); }
-  100% { transform: translate(40px, 20px) scale(1.08); }
-}
-@keyframes nebulaDrift2 {
-  0% { transform: translate(0, 0) scale(1); }
-  100% { transform: translate(-30px, -25px) scale(1.06); }
-}
-@keyframes nebulaDrift3 {
-  0% { transform: translate(0, 0) scale(1); }
-  100% { transform: translate(25px, -30px) scale(1.1); }
-}
-@keyframes nebulaDrift4 {
-  0% { transform: translate(0, 0) scale(1); }
-  100% { transform: translate(-35px, 15px) scale(1.05); }
-}
+/* Nebula clouds are huge blur(80-120px) layers — animating transform/scale on
+ * them forces full-size re-rasterization every frame. They are now fully
+ * static (the radial gradients themselves provide the atmosphere). */
 @keyframes meteorTravel {
-  from { transform: translate3d(0, 0, 0) rotate(0deg); }
-  to { transform: translate3d(var(--tx, 40vw), var(--ty, 120vh), 0) rotate(var(--rot, 12deg)); }
+  0%   { transform: translate3d(var(--px, 0px), var(--py, 0px), 0) rotate(0deg); opacity: 0; }
+  6%   { opacity: var(--op, 0.5); }
+  92%  { opacity: var(--op, 0.5); }
+  100% { transform: translate3d(calc(var(--tx, 40vw) + var(--px, 0px)), calc(var(--ty, 120vh) + var(--py, 0px)), 0) rotate(var(--rot, 12deg)); opacity: 0; }
 }
 @keyframes meteorReentry {
-  from { transform: translate3d(0, -20px, 0) scale(0.9); opacity: 0; }
-  20% { opacity: 0.8; }
-  to { transform: translate3d(var(--tx, 10vw), var(--ty, 40vh), 0) rotate(var(--rot, 6deg)); opacity: 0; }
+  from { transform: translate3d(var(--px, 0px), calc(-20px + var(--py, 0px)), 0) scale(0.9); opacity: 0; }
+  20% { opacity: var(--op, 0.6); }
+  to { transform: translate3d(calc(var(--tx, 10vw) + var(--px, 0px)), calc(var(--ty, 40vh) + var(--py, 0px)), 0) rotate(var(--rot, 6deg)); opacity: 0; }
 }
+
+/* ---------- Comet flame / plasma trail ----------
+ * PERFORMANCE NOTE: these animations run on elements that carry large
+ * CSS blur() filters. Animating filter/transform there forces the browser to
+ * re-rasterize the blurred layer every frame (the main CPU sink). We therefore
+ * animate ONLY opacity, which the compositor can blend without repaints. */
+@keyframes cometFlicker {
+  0%   { opacity: 0.72; }
+  40%  { opacity: 1; }
+  70%  { opacity: 0.82; }
+  100% { opacity: 0.95; }
+}
+@keyframes cometPulse {
+  0%   { opacity: 0.55; }
+  100% { opacity: 0.9; }
+}
+@keyframes cometSpark {
+  0%   { opacity: 0.9; }
+  100% { opacity: 0; }
+}
+.comet-halo, .comet-tail, .comet-core, .comet-spark {
+  animation-play-state: var(--meteor-play, running);
+}
+.cosmic-background { pointer-events: none; z-index: 0; }
 @keyframes floatDrift {
   0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
   50% { transform: translate3d(calc(var(--tx, 10vw) * 0.12), calc(var(--ty, 12vh) * 0.12), 0) rotate(var(--rot, 6deg)); }
@@ -272,13 +285,32 @@ body {
 /* Soft colored shadows - cosmic */
 .shadow-soft { box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
 
+/* ---------- Idle-time rendering guard (performance) ----------
+ * While the user is not scrolling or moving the pointer for a moment, the page
+ * content is static — only the fixed cosmic background animates. Without this,
+ * Chrome keeps re-compositing/re-rasterizing the tall document together with
+ * the animated backdrop layers behind it, which pins CPU at high levels even
+ * when nothing visually changes. Marking the content as "static" lets the
+ * compositor cache its layer while the background animates independently
+ * (no visual change: during idle the content pixels are identical anyway). */
+body.cosmic-idle .page-content {
+  will-change: auto;
+  contain: paint style;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .reveal, .animate-marquee, .blob, .cursor-light, .float-a, .float-b, .float-c, .float-slow {
+  .reveal, .animate-marquee, .blob, .cursor-light, .float-a, .float-b, .float-c, .float-slow,
+  .comet-halo, .comet-tail, .comet-core, .comet-spark, [style*="starTwinkle"], .footer-line {
     animation: none !important;
     transition: none !important;
   }
   .reveal { opacity: 1; transform: none; }
   .cursor-light { display: none; }
+  /* Reduced motion: no continuous JS loop may run at all — freeze CSS too. */
+  .cosmic-background *,
+  .cosmic-background {
+    animation-play-state: paused !important;
+  }
 }
 
 /* Scrollbar */

@@ -70,19 +70,19 @@ export interface MotionConfig {
 
 export const universeMotionConfig: Record<"desktop" | "tablet" | "mobile", MotionConfig> = {
   desktop: {
-    productCount: 16,
+    productCount: 10,
     meteorCount: 2,
     starCount: 45,
     maxParallax: 20,
   },
   tablet: {
-    productCount: 10,
+    productCount: 7,
     meteorCount: 1,
     starCount: 28,
     maxParallax: 12,
   },
   mobile: {
-    productCount: 5,
+    productCount: 4,
     meteorCount: 0,
     starCount: 16,
     maxParallax: 5,
