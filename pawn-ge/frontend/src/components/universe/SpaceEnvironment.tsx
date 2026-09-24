@@ -31,18 +31,50 @@ export default function SpaceEnvironment({ seed = 42 }: Props) {
     return () => mq.removeEventListener("change", onChange);
   }, []);
 
-  // Detect breakpoint
+  // Detect breakpoint (debounced via rAF so resize storms don't thrash React)
   useEffect(() => {
-    const update = () => {
+    let raf = 0;
+    const read = () => {
+      raf = 0;
       const width = window.innerWidth;
-      if (width >= 1440) setBreakpoint("desktop");
-      else if (width >= 768) setBreakpoint("tablet");
-      else setBreakpoint("mobile");
+      const next: keyof typeof universeMotionConfig =
+        width >= 1440 ? "desktop" : width >= 768 ? "tablet" : "mobile";
+      setBreakpoint((prev) => (prev === next ? prev : next));
     };
-    update();
-    window.addEventListener("resize", update);
-    return () => window.removeEventListener("resize", update);
+    const update = () => {
+      if (!raf) raf = requestAnimationFrame(read);
+    };
+    read();
+    window.addEventListener("resize", update, { passive: true });
+    return () => {
+      if (raf) cancelAnimationFrame(raf);
+      window.removeEventListener("resize", update);
+    };
   }, []);
+
+  // Idle-time rendering guard: when nobody scrolls/moves the pointer for ~1s,
+  // mark <body> idle so CSS can stop re-compositing the static page content
+  // behind the animated background. Any interaction clears it immediately.
+  useEffect(() => {
+    if (reducedMotion) return;
+    let timer: ReturnType<typeof setTimeout> | null = null;
+    const wake = () => {
+      document.body.classList.remove("cosmic-idle");
+      if (timer) clearTimeout(timer);
+      timer = setTimeout(() => document.body.classList.add("cosmic-idle"), 1000);
+    };
+    wake();
+    window.addEventListener("scroll", wake, { passive: true });
+    window.addEventListener("mousemove", wake, { passive: true });
+    window.addEventListener("touchstart", wake, { passive: true });
+    return () => {
+      if (timer) clearTimeout(timer);
+      document.body.classList.remove("cosmic-idle");
+      window.removeEventListener("scroll", wake);
+      window.removeEventListener("mousemove", wake);
+      window.removeEventListener("touchstart", wake);
+    };
+  }, [reducedMotion]);
 
   const cfg = universeMotionConfig[breakpoint];
   // Reduced motion → static / very slow star field only, no meteors

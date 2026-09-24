@@ -72,23 +72,21 @@ export default function Home() {
   const [searchOpen, setSearchOpen] = useState(false);
   const [query, setQuery] = useState("");
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [cursor, setCursor] = useState({ x: -600, y: -600 });
   const headerRef = useRef<HTMLElement>(null);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useReveal();
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
+    // Only flip state when the boolean actually changes — previously this
+    // called setState with a fresh object on every scroll event.
+    const onScroll = () => {
+      const next = window.scrollY > 20;
+      setScrolled((prev) => (prev === next ? prev : next));
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  useEffect(() => {
-    const onMove = (e: MouseEvent) => setCursor({ x: e.clientX, y: e.clientY });
-    window.addEventListener("mousemove", onMove, { passive: true });
-    return () => window.removeEventListener("mousemove", onMove);
   }, []);
 
   useEffect(() => {
@@ -129,7 +127,6 @@ export default function Home() {
           setHoveredCategory={setHoveredCategory}
           mobileOpen={mobileOpen}
           setMobileOpen={setMobileOpen}
-          cursor={cursor}
         />
 
         {/* Hero Section - Dark Cosmic Environment */}

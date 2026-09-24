@@ -49,6 +49,11 @@ export function useUniverseMotion(opts: {
     const recent: string[] = [];
     const particles: ProductParticle[] = [];
 
+    // Viewport ratio is only used to convert px travel into vw/vh units.
+    // Read it once here (memoized) instead of per-particle window lookups.
+    const vw = typeof window !== "undefined" ? window.innerWidth : 1440;
+    const vh = typeof window !== "undefined" ? window.innerHeight : 900;
+
     for (let i = 0; i < productCount; i++) {
       const asset = pickAsset(rand, recent);
       recent.push(asset.id);
@@ -92,8 +97,6 @@ export function useUniverseMotion(opts: {
         // Convert the desired screen-space angle into a px displacement using
         // the real viewport ratio, so the comet trail aligns exactly with the
         // visible travel direction (1vw ≠ 1vh in px terms).
-        const vw = typeof window !== "undefined" ? window.innerWidth : 1440;
-        const vh = typeof window !== "undefined" ? window.innerHeight : 900;
         const fallPx = (130 + rand() * 40) * (vh / 100); // vertical travel in px
         const dxPx = dirX * (fallPx / Math.max(0.2, Math.tan(angle)));
         const dyPx = dirY * fallPx;
@@ -152,7 +155,8 @@ export function useUniverseMotion(opts: {
       );
 
       particles.push({
-        id: `${asset.id}-${i}-${Date.now()}`,
+        // Stable key: asset + index (never Date.now(), which would churn keys)
+        id: `${asset.id}-${i}`,
         asset,
         depth,
         size: Math.round((60 + rand() * 100) * sizeScale),

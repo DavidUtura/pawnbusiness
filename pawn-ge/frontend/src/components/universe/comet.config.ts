@@ -30,7 +30,7 @@ export const trailByCategory: Record<string, TrailProfile> = {
   phone: {
     // slim silhouette, blue-violet rim glow
     length: 1.0,
-    blur: [10, 20],
+    blur: [8, 14],
     intensity: 1.0,
     tailTip: "#8B6CFF",
     tone: "cool",
@@ -38,7 +38,7 @@ export const trailByCategory: Record<string, TrailProfile> = {
   laptop: {
     // subtle edge reflection, slightly longer horizontal trail
     length: 1.45,
-    blur: [12, 24],
+    blur: [9, 16],
     intensity: 0.95,
     tailTip: "#5B8CFF",
     tone: "long",
@@ -46,7 +46,7 @@ export const trailByCategory: Record<string, TrailProfile> = {
   gaming: {
     // stronger silhouette, cool blue/purple glow
     length: 1.1,
-    blur: [14, 28],
+    blur: [10, 18],
     intensity: 1.05,
     tailTip: "#5B8CFF",
     tone: "cool",
@@ -54,7 +54,7 @@ export const trailByCategory: Record<string, TrailProfile> = {
   camera: {
     // larger silhouette with circular lens glow
     length: 1.0,
-    blur: [12, 26],
+    blur: [9, 17],
     intensity: 1.0,
     tailTip: "#BBD7FF",
     tone: "lens",
@@ -79,7 +79,7 @@ export const trailByCategory: Record<string, TrailProfile> = {
 
 export const defaultTrailProfile: TrailProfile = {
   length: 1.0,
-  blur: [10, 20],
+  blur: [8, 14],
   intensity: 1.0,
   tailTip: "#8B6CFF",
   tone: "cool",
