@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import SpaceEnvironment from "@/components/universe/SpaceEnvironment";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -18,13 +19,15 @@ export const metadata: Metadata = {
     "Discover iPhones, MacBooks, Samsung, PlayStation and more from pawn shops across Georgia — all in one place. Compare offers, reserve and buy.",
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html
       lang="en"
       className={`${inter.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-[#F1F0EB] text-[#171A18]">
+      <body className="min-h-full flex flex-col bg-[#05070B] text-[#F5F7FA]">
+        {/* One global cosmic environment behind every page */}
+        <SpaceEnvironment seed={42} />
         {children}
       </body>
     </html>

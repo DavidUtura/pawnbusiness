@@ -114,14 +114,36 @@ body {
   100% { transform: translate(-35px, 15px) scale(1.05); }
 }
 @keyframes meteorTravel {
-  from { transform: translate3d(0, 0, 0) rotate(0deg); }
-  to { transform: translate3d(var(--tx, 40vw), var(--ty, 120vh), 0) rotate(var(--rot, 12deg)); }
+  0%   { transform: translate3d(var(--px, 0px), var(--py, 0px), 0) rotate(0deg); opacity: 0; }
+  6%   { opacity: var(--op, 0.5); }
+  92%  { opacity: var(--op, 0.5); }
+  100% { transform: translate3d(calc(var(--tx, 40vw) + var(--px, 0px)), calc(var(--ty, 120vh) + var(--py, 0px)), 0) rotate(var(--rot, 12deg)); opacity: 0; }
 }
 @keyframes meteorReentry {
-  from { transform: translate3d(0, -20px, 0) scale(0.9); opacity: 0; }
-  20% { opacity: 0.8; }
-  to { transform: translate3d(var(--tx, 10vw), var(--ty, 40vh), 0) rotate(var(--rot, 6deg)); opacity: 0; }
+  from { transform: translate3d(var(--px, 0px), calc(-20px + var(--py, 0px)), 0) scale(0.9); opacity: 0; }
+  20% { opacity: var(--op, 0.6); }
+  to { transform: translate3d(calc(var(--tx, 10vw) + var(--px, 0px)), calc(var(--ty, 40vh) + var(--py, 0px)), 0) rotate(var(--rot, 6deg)); opacity: 0; }
 }
+
+/* ---------- Comet flame / plasma trail ---------- */
+@keyframes cometFlicker {
+  0%   { opacity: 0.72; transform: scaleX(0.96); }
+  40%  { opacity: 1; }
+  70%  { opacity: 0.82; transform: scaleX(1.03); }
+  100% { opacity: 0.95; transform: scaleX(0.99); }
+}
+@keyframes cometPulse {
+  0%   { opacity: 0.55; transform: scale(1); }
+  100% { opacity: 0.9; transform: scale(1.06); }
+}
+@keyframes cometSpark {
+  0%   { opacity: 0.9; transform: translate3d(0, 0, 0) scale(1); }
+  100% { opacity: 0; transform: translate3d(-26px, 10px, 0) scale(0.3); }
+}
+.comet-halo, .comet-tail, .comet-core, .comet-spark {
+  animation-play-state: var(--meteor-play, running);
+}
+.cosmic-background { pointer-events: none; z-index: 0; }
 @keyframes floatDrift {
   0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
   50% { transform: translate3d(calc(var(--tx, 10vw) * 0.12), calc(var(--ty, 12vh) * 0.12), 0) rotate(var(--rot, 6deg)); }

@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import SpaceEnvironment from "@/components/universe/SpaceEnvironment";
 import OrbitalHeader from "@/components/header/OrbitalHeader";
 import CategoryObservatory from "@/components/categories/CategoryObservatory";
 
@@ -117,11 +116,9 @@ export default function Home() {
     : searchSuggestions;
 
   return (
-    <div className="relative min-h-screen bg-[#05070B] overflow-x-hidden text-[#F5F7FA]">
-      {/* Global Space Environment - spans entire page */}
-      <SpaceEnvironment seed={42} />
-
-      {/* Page content wrapper with higher z-index */}
+    <div className="relative min-h-screen overflow-x-hidden text-[#F5F7FA]">
+      {/* The global cosmic environment is mounted once at layout level.
+          Page content sits above it via this z-index wrapper. */}
       <div className="relative z-10">
         {/* Orbital Header Component */}
         <OrbitalHeader
@@ -210,7 +207,7 @@ export default function Home() {
         </section>
 
         {/* Live market strip - dark cosmic */}
-        <div className="group/strip overflow-hidden" style={{ background: "linear-gradient(90deg, #080D16, #0B1220, #080D16)" }}>
+        <div className="group/strip overflow-hidden backdrop-blur-sm" style={{ background: "linear-gradient(90deg, rgba(8,13,22,0.55), rgba(11,18,32,0.4), rgba(8,13,22,0.55))" }}>
           <div className="marquee-mask">
             <div className="flex w-max animate-marquee group-hover/strip:[animation-play-state:paused] items-center gap-10 py-3.5 text-sm">
               <span className="flex items-center gap-2 shrink-0">
@@ -277,7 +274,7 @@ export default function Home() {
         </section>
 
         {/* Dark comparison - cosmic control panel */}
-        <section className="reveal relative overflow-hidden" style={{ background: "linear-gradient(135deg, #080D16, #0B1220 55%, #05070B)" }}>
+        <section className="reveal relative overflow-hidden" style={{ background: "linear-gradient(135deg, rgba(8,13,22,0.6), rgba(11,18,32,0.45) 55%, rgba(5,7,11,0.6))" }}>
           <div className="pointer-events-none absolute -top-24 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full opacity-20" style={{ background: "radial-gradient(circle, rgba(91,140,255,0.25), transparent 65%)", filter: "blur(90px)" }} />
           <div className="relative max-w-[1320px] mx-auto px-6 py-20 md:py-28">
             <div className="grid lg:grid-cols-2 gap-16 items-center">
@@ -327,7 +324,7 @@ export default function Home() {
         </section>
 
         {/* Georgia map - Dark cosmic Lombard discovery */}
-        <section className="reveal relative overflow-hidden" style={{ background: "linear-gradient(180deg, #080D16, #0B1220 60%, #05070B)" }}>
+        <section className="reveal relative overflow-hidden" style={{ background: "linear-gradient(180deg, rgba(8,13,22,0.55), rgba(11,18,32,0.4) 60%, rgba(5,7,11,0.6))" }}>
           <div className="blob blob-b" style={{ width: 480, height: 480, top: "10%", left: "-8%", background: "#5B8CFF", opacity: 0.08 }} />
           <div className="blob blob-c" style={{ width: 420, height: 420, bottom: "-10%", right: "-6%", background: "#8B6CFF", opacity: 0.08 }} />
 
@@ -402,7 +399,7 @@ export default function Home() {
         </section>
 
         {/* For Lombards - dark cosmic */}
-        <section className="reveal relative overflow-hidden" style={{ background: "linear-gradient(135deg, #080D16, #0B1220 55%, #05070B)" }}>
+        <section className="reveal relative overflow-hidden" style={{ background: "linear-gradient(135deg, rgba(8,13,22,0.55), rgba(11,18,32,0.4) 55%, rgba(5,7,11,0.6))" }}>
           <div className="pointer-events-none absolute inset-0" style={{ background: "radial-gradient(50% 60% at 78% 30%, rgba(91,140,255,0.15), transparent 70%)" }} />
           <div className="relative max-w-[1320px] mx-auto px-6 py-20 md:py-28">
             <div className="max-w-2xl">
@@ -427,7 +424,7 @@ export default function Home() {
         </section>
 
         {/* Footer - dark cosmic */}
-        <footer style={{ background: "linear-gradient(180deg, #05070B, #080D16)" }}>
+        <footer style={{ background: "linear-gradient(180deg, rgba(5,7,11,0.72), rgba(8,13,22,0.6))" }}>
           <div className="footer-line" />
           <div className="max-w-[1320px] mx-auto px-6 py-16">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
@@ -480,7 +477,7 @@ function Mega({ children, onEnter, onLeave }: { children: React.ReactNode; onEnt
       onMouseEnter={onEnter}
       onMouseLeave={onLeave}
       className="animate-dropdown absolute left-0 right-0 top-[calc(100%+10px)] z-40 border border-white/10 rounded-2xl shadow-[0_28px_70px_rgba(0,0,0,0.45)] p-7 backdrop-blur-xl"
-      style={{ background: "linear-gradient(135deg, #101A16, #17241F 60%, #101A16)" }}
+      style={{ background: "linear-gradient(135deg, rgba(8,13,22,0.94), rgba(11,18,32,0.9) 60%, rgba(8,13,22,0.94))" }}
     >
       {children}
     </div>

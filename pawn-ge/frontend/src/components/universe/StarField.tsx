@@ -4,9 +4,11 @@ import type { Star } from "./universe.types";
 
 interface Props {
   stars: Star[];
+  /** Reduced motion: static stars, no twinkle */
+  reduced?: boolean;
 }
 
-export default function StarField({ stars }: Props) {
+export default function StarField({ stars, reduced = false }: Props) {
   return (
     <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
       {stars.map((star) => (
@@ -19,7 +21,7 @@ export default function StarField({ stars }: Props) {
             width: star.size,
             height: star.size,
             opacity: star.opacity,
-            animation: `starTwinkle ${star.duration}s ease-in-out ${star.delay}s infinite`,
+            animation: reduced ? undefined : `starTwinkle ${star.duration}s ease-in-out ${star.delay}s infinite`,
             boxShadow: star.type === "bright" ? "0 0 6px rgba(255,255,255,0.4)" : undefined,
           }}
         />
